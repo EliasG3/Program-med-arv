@@ -20,11 +20,11 @@ public class App {
     public void play(int pins) {
         board.setPins(pins);
         System.out.println("Play a game of TakePins! Press Y to begin, or N to quit!");
-        String input = scanner.nextLine(); 
+        String input = scanner.nextLine();
 
         if (input.equalsIgnoreCase("Y")) {
 
-            setupPlayers(); 
+            setupPlayers();
 
             System.out.println("The game has begun.");
             System.out.println("The board has " + board.getPins() + " pins.");
@@ -47,14 +47,7 @@ public class App {
                 }
                 System.out.println("\nThe board has " + board.getPins() + " pins!");
 
-                if (board.isEmpty()) {
-                    Player winner = currentPlayer;
-                    Player loser = (currentPlayer == player1) ? player2 : player1;
-                    isOver = true;
-                    System.out.println("Game over! " + winner.getName() + " wins! \n" +  loser.getName() +" ,Due fkn sämst");
-                } else {
-                    currentPlayer = (currentPlayer == player1) ? player2 : player1;
-                }
+                checkIfBoardIsEmpty();
             }
 
         } else if (input.equalsIgnoreCase("N")) {
@@ -64,9 +57,22 @@ public class App {
         }
     }
 
+    public void checkIfBoardIsEmpty() {
+        if (board.isEmpty()) {
+            Player winner = currentPlayer;
+            Player loser = (currentPlayer == player1) ? player2 : player1;
+            isOver = true;
+            System.out
+                    .println("Game over! " + winner.getName() + " wins! \n" + "Yous a loser " + loser.getName() + "!");
+        } else {
+            currentPlayer = (currentPlayer == player1) ? player2 : player1;
+        }
+    }
+
     public void setupPlayers() {
         System.out
-                .println("\nWelcome to TakePins! The game where you take pins from the board until there are none left.");
+                .println(
+                        "\nWelcome to TakePins! The game where you take pins from the board until there are none left.");
         System.out.println("Please enter your name:");
         String name = scanner.nextLine();
         this.player1 = new HumanPlayer(name);
@@ -74,7 +80,7 @@ public class App {
         System.out.println("\nWelcome, " + name + "!" + "\n");
         System.out.println(
                 "You will be playing against the computer," + " The computer's name is " + player2.getName() + "!");
-        this.currentPlayer = player1; 
+        this.currentPlayer = player1;
     }
 
     public void userInput() {
@@ -85,12 +91,12 @@ public class App {
             currentPlayer.take2Pins(board);
         } else {
             System.out.println("Invalid input. Please try again.");
-            userInput(); 
+            userInput();
         }
     }
 
     public static void main(String[] args) {
         App game = new App();
-        game.play(10); 
+        game.play(10);
     }
 }
